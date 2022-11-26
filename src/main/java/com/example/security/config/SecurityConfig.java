@@ -4,11 +4,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // by enabling this annotation security filter is registered to spring filter chain
 public class SecurityConfig {
+
+    // 해당메서드의 리턴되는 오브젝트는 IoC에 등록해준다
+    @Bean
+    public BCryptPasswordEncoder encodePassword(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
    public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {

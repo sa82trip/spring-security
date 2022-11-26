@@ -3,6 +3,7 @@ package com.example.security.controller;
 import com.example.security.model.User;
 import com.example.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,9 @@ public class IndexController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping({"","/"})
     public String index(){
@@ -51,13 +55,16 @@ public class IndexController {
         return "joinForm";
     }
     @PostMapping({"/join"})
-    public @ResponseBody String join(User user){
+    public String join(User user){
         // 머스테치 기본촐터 src/main/resources/
         // 뷰리졸버 설정: templates (prefix), .mustache (suffix)
-        System.out.println(user);
         user.setRole("ROLE_USER");
+        String rawPassword = user.getPassword();
+        String encodedPassword = bCryptPasswordEncoder.encode(rawPassword);
+        user.setPassword(encodedPassword);
         userRepository.save(user); // -> 이렇게 회원가입하면 나중에 시큐리티로 로그인을 할 수 없음 왜냐면 패스워드 암호화가 안되었기 때뭉에
-        return "join";
+        System.out.println(user);
+        return "redirect:/loginForm";
     }
     @GetMapping({"/logout"})
     public @ResponseBody String logout() {
