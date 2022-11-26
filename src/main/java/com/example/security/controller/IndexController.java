@@ -3,6 +3,8 @@ package com.example.security.controller;
 import com.example.security.model.User;
 import com.example.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +73,18 @@ public class IndexController {
         // 머스테치 기본촐터 src/main/resources/
         // 뷰리졸버 설정: templates (prefix), .mustache (suffix)
         return "logout";
+    }
+
+    @Secured("ROLE_ADMIN") // securityConfig에서 Global설정 한 것으로 인해서 이런 설정이 가능
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "개인정보:";
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGER') || hasRole('ROLE_ADMIN')")
+    @GetMapping("/data")
+    public @ResponseBody String data() {
+        return "데이터정보";
     }
 
 }
