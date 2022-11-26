@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    private String name;
+    private String userName;
     private String password;
     private String email;
     private String role; //ROLE_USER, ROLE_ADMIN
