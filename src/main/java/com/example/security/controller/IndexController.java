@@ -58,7 +58,7 @@ public class IndexController {
     }
     @PostMapping({"/join"})
     public String join(User user){
-        // 머스테치 기본촐터 src/main/resources/
+        // 머스테치 기본폴더 src/main/resources/
         // 뷰리졸버 설정: templates (prefix), .mustache (suffix)
         user.setRole("ROLE_USER");
         String rawPassword = user.getPassword();
