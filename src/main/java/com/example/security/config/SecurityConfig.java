@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/loginForm")
+                .loginProcessingUrl("/login") // /login 주소가 호출되면 스프링 시큐리티가 낚아 채서 대신 로그인을 진행
+                .defaultSuccessUrl("/")
                 .and().build();
     }
 
