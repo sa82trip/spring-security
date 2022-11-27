@@ -67,8 +67,11 @@ public class IndexController {
         // 뷰리졸버 설정: templates (prefix), .mustache (suffix)
         return "admin";
     }
+    // OAuth 로그인을 해도 PrincipalDetails
+    // 일반 로그인을해도 PrincipalDetails
     @GetMapping({"/user"})
-    public @ResponseBody String user(){
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("PrincipalDetails: "+ principalDetails.getUser());
         // 머스테치 기본촐터 src/main/resources/
         // 뷰리졸버 설정: templates (prefix), .mustache (suffix)
         return "user";
