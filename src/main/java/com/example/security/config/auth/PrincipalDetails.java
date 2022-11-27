@@ -3,9 +3,11 @@ package com.example.security.config.auth;
 import com.example.security.model.User;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 /*
 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행
@@ -16,7 +18,7 @@ User 오브젝트타입 -> UserDetails 타입 객체
 * */
 // Security Session -> Authentication -> UserDetails(PrincipalDetails)
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
 
@@ -66,5 +68,16 @@ public class PrincipalDetails implements UserDetails {
     public boolean isEnabled() {
         // 사이트에 1년 동안 로그인을 안하면 휴면으로 돌리는 설정이 필요할 때
         return true;
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
+    }
+
+
+    @Override
+    public String getName() {
+        return null;
     }
 }
