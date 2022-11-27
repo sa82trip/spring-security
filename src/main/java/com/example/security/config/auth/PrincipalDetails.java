@@ -3,6 +3,7 @@ package com.example.security.config.auth;
 import com.example.security.model.User;
 import java.util.ArrayList;
 import java.util.Collection;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,6 +15,7 @@ Authentication 안에 User 정보가 있어야 됨.
 User 오브젝트타입 -> UserDetails 타입 객체
 * */
 // Security Session -> Authentication -> UserDetails(PrincipalDetails)
+@Data
 public class PrincipalDetails implements UserDetails {
 
     private User user;
